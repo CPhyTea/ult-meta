@@ -35,10 +35,19 @@ interface IUltMeta {
 
   // code和Meta的映射
   mapping: Map<number | string, Meta>;
+
+  list: Meta[];
 }
 
 export default class UltMeta implements IUltMeta {
   mapping: Map<number | string, Meta>;
+
+  get list() {
+    this.initMapping();
+    const list: Meta[] = [];
+    this.mapping.forEach(value => list.push(value));
+    return list;
+  }
 
   constructor() {
     this.mapping = new Map();
