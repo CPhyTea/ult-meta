@@ -1,8 +1,10 @@
 {
   "name": "ult-meta",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "常量定义",
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/main.js",
   "types": "lib/mad.d.ts",
   "scripts": {
