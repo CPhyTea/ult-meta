@@ -2,15 +2,30 @@
   "name": "ult-meta",
   "version": "1.0.0",
   "description": "常量定义",
-  "main": "index.js",
+  "files": ["lib"],
+  "main": "lib/main.js",
+  "types": "lib/mad.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "prepare": "npm run build",
+    "version": "git add . && git commit -m \"new version\"",
+    "postversion": "git push && git push --tags"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gaoweijun2018/ult-meta.git"
+  },
+  "keywords": [
+    "meta",
+    "typescript"
+  ],
+  "author": "gaoweijung",
   "license": "ISC",
   "devDependencies": {
+    "prettier": "^2.3.0",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.2.4"
   }
 }
