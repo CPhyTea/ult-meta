@@ -25,9 +25,15 @@
   "author": "gaoweijung",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.14.3",
+    "@babel/core": "^7.14.3",
+    "@babel/preset-env": "^7.14.2",
     "prettier": "^2.3.0",
     "tslint": "^6.1.3",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1"
   }
 }
