@@ -10,9 +10,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "prepare": "npm run build",
-    "version": "git add . && git commit -m \"new version\"",
-    "postversion": "git push && git push --tags"
+    "prepare": "npm run build && npx babel lib --out-dir lib "
   },
   "repository": {
     "type": "git",
