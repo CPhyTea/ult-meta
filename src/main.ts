@@ -4,6 +4,11 @@ export class Meta {
   intro: string;
   state: number | undefined;
 
+  // 是否匹配
+  match(code: any): boolean {
+    return code === this.code;
+  }
+
   constructor(code: number | string, intro: string, state?: number) {
     this.code = code;
     this.intro = intro;
@@ -62,6 +67,13 @@ export default class UltMeta implements IUltMeta {
       // @ts-ignore
       this.mapping.set(this[key].code, this[key]);
     });
+  }
+
+  // 通过code获取Meta
+  from(code: any): Meta | null {
+    this.initMapping();
+    const def: Meta | undefined = this.mapping.get(code);
+    return def || null;
   }
 
   // 通过code获取intro
