@@ -42,6 +42,8 @@ interface IUltMeta {
   mapping: Map<number | string, Meta>;
 
   list: Meta[];
+
+  from(code: any): Meta | null
 }
 
 export default class UltMeta implements IUltMeta {
