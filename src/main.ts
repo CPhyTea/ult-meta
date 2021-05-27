@@ -2,14 +2,14 @@
 export class Meta {
   code: number | string;
   intro: string;
-  state: number | undefined;
+  state: string | undefined;
 
   // 是否匹配
   match(code: any): boolean {
     return code === this.code;
   }
 
-  constructor(code: number | string, intro: string, state?: number) {
+  constructor(code: number | string, intro: string, state?: string) {
     this.code = code;
     this.intro = intro;
     this.state = state;
@@ -36,7 +36,7 @@ interface IUltMeta {
   getIntroByCode(code: number | string): string | null;
 
   // 通过code获取状态
-  getStateByCode(code: number | string): number | null;
+  getStateByCode(code: number | string): string | null;
 
   // code和Meta的映射
   mapping: Map<number | string, Meta>;
@@ -89,7 +89,7 @@ export default class UltMeta implements IUltMeta {
   }
 
   // 通过code获取state
-  getStateByCode(code: number | string): number | null {
+  getStateByCode(code: number | string): string | null {
     this.initMapping();
     const def: Meta | undefined = this.mapping.get(code);
     if (isEmpty(def) || (!isEmpty(def) && isUndefined(def!.state))) {
