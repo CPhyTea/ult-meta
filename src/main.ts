@@ -47,6 +47,8 @@ interface IUltMeta {
 }
 
 export default class UltMeta implements IUltMeta {
+  // 添加是否已经被初始化的属性
+  _inited: boolean = false;
   mapping: Map<number | string, Meta>;
 
   get list() {
@@ -61,6 +63,7 @@ export default class UltMeta implements IUltMeta {
   }
 
   initMapping() {
+    if (this._inited) return;
     if (Array.from(this.mapping.entries()).length) return;
     Object.keys(this).forEach((key, i, a) => {
       // 初始化每一个def实例
@@ -69,6 +72,7 @@ export default class UltMeta implements IUltMeta {
       // @ts-ignore
       this.mapping.set(this[key].code, this[key]);
     });
+    this._inited = true;
   }
 
   // 通过code获取Meta
