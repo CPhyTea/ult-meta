@@ -27,3 +27,7 @@ APP_CODE_META.ACCOUNT.match('lianxin-account'); // true;
 ### 获取列表
 APP_CODE_META.list // [new Meta('lianxin-account', '001', 'processing'), new Meta("lianxin-zm", "002"), new Meta("lianxin-am", "003"),...]
 
+## 发布命令
+npm run prepare
+npm version patch
+npm publish
