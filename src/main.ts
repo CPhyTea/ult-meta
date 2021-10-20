@@ -68,7 +68,7 @@ export default class UltMeta implements IUltMeta {
     Object.keys(this).forEach((key, i, a) => {
       // 初始化每一个def实例
       // @ts-ignore
-      if (['list', 'mapping'].includes(key)) return;
+      if (['list', 'mapping', '_inited'].includes(key)) return;
       // @ts-ignore
       this.mapping.set(this[key].code, this[key]);
     });
