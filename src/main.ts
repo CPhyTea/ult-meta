@@ -91,14 +91,14 @@ export default class UltMeta {
   }
 
   // 通过code获取intro
-  public getIntroByCode<T>(code: number | string): T {
+  public getIntroByCode<T = string>(code: number | string): T {
     this.initMapping();
     const def: Meta | undefined = this.mapping.get(code);
     return getByPath(def, 'intro');
   }
 
   // 通过code获取state
-  public getStateByCode<T>(code: number | string): T {
+  public getStateByCode<T = string>(code: number | string): T {
     this.initMapping();
     const def: Meta | undefined = this.mapping.get(code);
     return getByPath(def, 'state');
