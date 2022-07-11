@@ -1,15 +1,15 @@
 // 常用类型定义
-export class Meta {
-  code: number | string;
-  intro: string;
-  state: string | undefined;
+export class Meta<C = number,I = string, S = string> {
+  code: C;
+  intro: I;
+  state: S;
 
   // 是否匹配
   match(code: any): boolean {
     return code === this.code;
   }
 
-  constructor(code: number | string, intro: string, state?: string) {
+  constructor(code: C, intro: I, state: S = null) {
     this.code = code;
     this.intro = intro;
     this.state = state;
@@ -31,27 +31,33 @@ function isEmpty(value: any): boolean {
   return isNull(value) || isUndefined(value);
 }
 
-interface IUltMeta {
-  // 通过code获取intro
-  getIntroByCode(code: number | string): string | null;
-
-  // 通过code获取状态
-  getStateByCode(code: number | string): string | null;
-
-  // code和Meta的映射
-  mapping: Map<number | string, Meta>;
-
-  list: Meta[];
-
-  from(code: any): Meta | null
+function isObject(value: any) {
+  return typeof value === 'object' && value;
 }
 
-export default class UltMeta implements IUltMeta {
-  // 添加是否已经被初始化的属性
-  _inited: boolean = false;
-  mapping: Map<number | string, Meta>;
+// 通过path获取对象的值
+function getByPath(object: any, path: string) {
+  if (!path || isEmpty(object)) return object ;
+  let result = object;
+  const pathArr = path.split('.');
+  while (pathArr.length && !isEmpty(object)) {
+    let pathItem = pathArr.shift();
+    result = (result as any)[pathItem];
+  }
+  return result;
+}
 
-  get list() {
+const privateKey = ['list', 'mapping', '_inited'];
+
+export default class UltMeta {
+  // 添加是否已经被初始化的属性
+  private _inited: boolean = false;
+  private mapping: Map<number | string, Meta>;
+
+  /**
+   * 列表
+   */
+  public get list() {
     this.initMapping();
     const list: Meta[] = [];
     this.mapping.forEach(value => list.push(value));
@@ -62,44 +68,40 @@ export default class UltMeta implements IUltMeta {
     this.mapping = new Map();
   }
 
-  initMapping() {
+  /**
+   * 初始化map
+   * @private
+   */
+  private initMapping() {
     if (this._inited) return;
     if (Array.from(this.mapping.entries()).length) return;
     Object.keys(this).forEach((key, i, a) => {
       // 初始化每一个def实例
-      // @ts-ignore
-      if (['list', 'mapping', '_inited'].includes(key)) return;
-      // @ts-ignore
-      this.mapping.set(this[key].code, this[key]);
+      if (privateKey.includes(key)) return;
+      this.mapping.set(getByPath(this, `${key}.code`), getByPath(this, key));
     });
     this._inited = true;
   }
 
   // 通过code获取Meta
-  from(code: any): Meta | null {
+  public from(code: any): Meta | null {
     this.initMapping();
     const def: Meta | undefined = this.mapping.get(code);
     return def || null;
   }
 
   // 通过code获取intro
-  getIntroByCode(code: number | string): string | null {
+  public getIntroByCode<T>(code: number | string): T {
     this.initMapping();
     const def: Meta | undefined = this.mapping.get(code);
-    if (isEmpty(def)) {
-      return null;
-    }
-    return def!.intro;
+    return getByPath(def, 'intro');
   }
 
   // 通过code获取state
-  getStateByCode(code: number | string): string | null {
+  public getStateByCode<T>(code: number | string): T {
     this.initMapping();
     const def: Meta | undefined = this.mapping.get(code);
-    if (isEmpty(def) || (!isEmpty(def) && isUndefined(def!.state))) {
-      return null;
-    }
-    return def!.state!;
+    return getByPath(def, 'state');
   }
 }
 

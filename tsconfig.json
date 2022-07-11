@@ -5,7 +5,8 @@
     "declaration": true,
     "outDir": "./lib",
     "strict": true,
-    "lib": ["ES6"]
+    "lib": ["ES2016"],
+    "strictNullChecks": false
   },
   "include": ["./src"],
   "exclude": ["node_modules", "src/example.ts"]
