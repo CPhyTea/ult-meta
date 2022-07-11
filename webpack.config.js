@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: path.resolve(__dirname, 'src', 'main.ts'),
+  entry: './src/index.ts',
   module: {
     rules: [
       {
@@ -16,6 +16,7 @@ module.exports = {
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    library: 'dist'
+    library: { name: 'ult-def', type: 'umd' },
+    filename: 'index.js',
   },
 };

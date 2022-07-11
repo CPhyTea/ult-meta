@@ -1,4 +1,4 @@
-import UltMeta, {Meta} from "../src/main";
+import UltMeta, {Meta} from "../src";
 
 class AppCodeMeta extends UltMeta {
   ACCOUNT = new Meta(1, '001');

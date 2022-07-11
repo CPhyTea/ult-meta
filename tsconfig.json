@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES5",
+    "target": "ES6",
     "module": "ESNext",
     "declaration": true,
     "outDir": "./dist",
@@ -9,6 +9,5 @@
     "strictNullChecks": false,
     "moduleResolution": "node"
   },
-  "include": ["./src"],
-  "exclude": ["node_modules", "src/example.ts"]
+  "include": ["./src/index.ts"],
 }
